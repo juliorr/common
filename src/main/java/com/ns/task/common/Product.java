@@ -2,6 +2,7 @@ package com.ns.task.common;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 public class Product {
   private Integer id;
@@ -49,7 +50,9 @@ public class Product {
       return false;
     }
     Product that = (Product)object;
-    for (int i = 0; i < this.getSigFields().length; ++i) {
+    Object[] fields = this.getSigFields();
+
+    for (int i = 0; i < fields.length; ++i) {
       if (!Objects.equals(this.getSigFields()[i], that.getSigFields()[i])) {
         return false;
       }
@@ -62,8 +65,7 @@ public class Product {
   }
 
   @Override public String toString() {
-    return "id: " + this.id + "\nname: " + this.name + "\ndescription: "
-        + this.description + "\nprice: " + this.price;
+    return ReflectionToStringBuilder.toString(this);
   }
 
   /**
