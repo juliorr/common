@@ -12,6 +12,9 @@
 
   <artifactId>common</artifactId>
   <packaging>jar</packaging>
+  <properties>
+    <junit.version>4.12</junit.version>
+  </properties>
 
   <name>common</name>
   <description>common</description>
@@ -19,7 +22,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
