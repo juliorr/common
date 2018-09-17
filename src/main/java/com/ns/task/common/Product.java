@@ -1,10 +1,13 @@
 package com.ns.task.common;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 public class Product {
+  private static final int SCALE_ROUNDING = 3;
+
   private Integer id;
   private String name;
   private String description;
@@ -35,7 +38,7 @@ public class Product {
   }
 
   public BigDecimal getPrice() {
-    return this.price;
+    return this.price.setScale(SCALE_ROUNDING, RoundingMode.HALF_UP);
   }
 
   public void setPrice(BigDecimal price) {
@@ -50,10 +53,11 @@ public class Product {
       return false;
     }
     Product that = (Product)object;
-    Object[] fields = this.getSigFields();
+    Object[] fields = this.getSignificantFields();
+    Object[] thatFields = that.getSignificantFields();
 
     for (int i = 0; i < fields.length; ++i) {
-      if (!Objects.equals(this.getSigFields()[i], that.getSigFields()[i])) {
+      if (!Objects.equals(fields[i], thatFields[i])) {
         return false;
       }
     }
@@ -61,7 +65,7 @@ public class Product {
   }
 
   @Override public int hashCode() {
-    return Objects.hash(this.getSigFields());
+    return Objects.hash(this.getSignificantFields());
   }
 
   @Override public String toString() {
@@ -72,7 +76,7 @@ public class Product {
    * Return all the fields of the POJO.
    * @return Object[] with all the fields of the POJO
    */
-  private Object[] getSigFields() {
+  private Object[] getSignificantFields() {
     Object[] result = {
         this.id, this.name, this.description, this.price,
     };
