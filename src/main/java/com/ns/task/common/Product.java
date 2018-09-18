@@ -69,7 +69,13 @@ public class Product {
   }
 
   @Override public String toString() {
-    return ReflectionToStringBuilder.toString(this);
+    StringBuilder sb = new StringBuilder("Product{");
+    sb.append("id='").append(this.id).append('\'');
+    sb.append(", name='").append(this.name).append('\'');
+    sb.append(", description='").append(this.description).append('\'');
+    sb.append(", price='").append(this.price).append("\'}");
+
+    return sb.toString();
   }
 
   /**
